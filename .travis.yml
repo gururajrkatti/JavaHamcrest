@@ -2,10 +2,6 @@ language: java
 
 os: linux
 
-arch:
-  - amd64
-  - ppc64le
-
 # Need to select an older Ubuntu distribution that supports JDK7
 dist: trusty
 
