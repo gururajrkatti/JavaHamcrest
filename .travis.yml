@@ -34,8 +34,8 @@ script:
 # Exclude the unsupported jdk on ppc64le travis.
 matrix:
   exclude:
-     arch: ppc64le
-     jdk: 
+     -arch: ppc64le
+      jdk: 
        - openjdk7
        - oraclejdk8
        - openjdk8
