@@ -33,13 +33,3 @@ script:
   - ./gradlew clean build javadoc
 
 # Exclude the unsupported jdk on ppc64le travis.
-jobs:
-  exclude:
-     - arch: ppc64le
-       jdk: openjdk7
-     - arch: ppc64le
-       jdk: oraclejdk8
-     - arch: ppc64le
-       jdk: openjdk8
-     - arch: ppc64le
-       jdk: oraclejdk9
