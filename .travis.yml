@@ -20,6 +20,15 @@ jdk:
 # Workaround to using openjdk7 with Gradle due to security issue:
 # https://github.com/gradle/gradle/issues/2421
 
+before_install:
+- if [ "$TRAVIS_CPU_ARCH" != ppc64le ]; then  # ppc64le doesn't have openjdk7. This is not needed
+   BCPROV_FILENAME=bcprov-ext-jdk15on-158.jar;
+   wget "https://bouncycastle.org/download/${BCPROV_FILENAME}";
+   sudo mv $BCPROV_FILENAME /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext;
+   sudo perl -pi.bak -e 's/^(security\.provider\.)([0-9]+)/$1.($2+1)/ge' /etc/java-7-openjdk/security/java.security;
+   echo "security.provider.1=org.bouncycastle.jce.provider.BouncyCastleProvider" | sudo tee -a /etc/java-7-openjdk/security/java.security;
+  fi
+  
 script:
   - ./gradlew clean build javadoc
 
@@ -27,10 +36,10 @@ script:
 jobs:
   exclude:
      - arch: ppc64le
-        jdk: openjdk7
+       jdk: openjdk7
      - arch: ppc64le
-        jdk: oraclejdk8
+       jdk: oraclejdk8
      - arch: ppc64le
-        jdk: openjdk8
+       jdk: openjdk8
      - arch: ppc64le
-        jdk: oraclejdk9
+       jdk: oraclejdk9
